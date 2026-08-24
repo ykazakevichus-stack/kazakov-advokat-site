@@ -364,7 +364,7 @@
           <p style="font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin:44px 0 0;">Библиотека материалов</p>
           <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:18px; margin-top:16px;">
 <!-- MATERIALS_LIBRARY_START: добавляйте новые материалы такой же карточкой -->
-            <a href="rassrochka-roadmap.pdf" download style="background:var(--surface); border:1px solid var(--line); padding:26px; display:flex; flex-direction:column; gap:12px; text-decoration:none;">
+            <a href="rassrochkaroadmap.pdf" download style="background:var(--surface); border:1px solid var(--line); padding:26px; display:flex; flex-direction:column; gap:12px; text-decoration:none;">
               <span style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);">PDF · гайд</span>
               <h3 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:20px; margin:0;">Рассрочка по уплате налогов: пошаговый алгоритм</h3>
               <p style="font-size:15px; color:var(--muted); margin:0;">Как законно оформить рассрочку по налоговой задолженности — пошаговая инструкция для бизнеса.</p>
@@ -584,9 +584,9 @@
           if (data.success) {
             leadForm.reset();
             if (pdfWindow) {
-              pdfWindow.location = 'rassrochka-roadmap.pdf';
+              pdfWindow.location = 'rassrochkaroadmap.pdf';
             } else {
-              window.open('rassrochka-roadmap.pdf', '_blank');
+              window.open('rassrochkaroadmap.pdf', '_blank');
             }
             leadStatus.textContent = 'Спасибо! Материал открылся в новой вкладке.';
             leadStatus.style.color = accent;
