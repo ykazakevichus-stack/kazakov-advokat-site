@@ -361,6 +361,18 @@
             <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Реклама и маркетинг в digital: налоговые ловушки</li>
           </ul>
 
+          <p style="font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin:44px 0 0;">Библиотека материалов</p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:18px; margin-top:16px;">
+<!-- MATERIALS_LIBRARY_START: добавляйте новые материалы такой же карточкой -->
+            <a href="rassrochka-roadmap.pdf" download style="background:var(--surface); border:1px solid var(--line); padding:26px; display:flex; flex-direction:column; gap:12px; text-decoration:none;">
+              <span style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);">PDF · гайд</span>
+              <h3 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:20px; margin:0;">Рассрочка по уплате налогов: пошаговый алгоритм</h3>
+              <p style="font-size:15px; color:var(--muted); margin:0;">Как законно оформить рассрочку по налоговой задолженности — пошаговая инструкция для бизнеса.</p>
+              <span style="margin-top:auto; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);">Скачать →</span>
+            </a>
+<!-- MATERIALS_LIBRARY_END -->
+          </div>
+
           <p style="font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin:44px 0 0;">Последние посты</p>
           <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:16px;">
 <!-- TG_POSTS_HOME_START -->
@@ -442,11 +454,38 @@
     </div>
   </section>
 
+  <div style="border-top:1px solid var(--line);">
+    <div style="max-width:1140px; margin:0 auto; padding:0 clamp(20px,5vw,64px);">
+      <div style="position:relative; width:100%; padding-top:44%; margin:34px 0; background:var(--surface); border:1px solid var(--line);">
+        <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=81084266642" style="position:absolute; inset:0; width:100%; height:100%; border:0;" loading="lazy" title="Ярослав Казаков на карте"></iframe>
+      </div>
+    </div>
+  </div>
+
   <div style="border-top:1px solid var(--line); padding:34px 0 54px; font-size:13px; color:var(--muted);">
     <div style="max-width:1140px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; flex-wrap:wrap; gap:14px 36px; justify-content:space-between;">
       <p style="max-width:66ch; margin:0;">Информация на сайте носит справочный характер, не является публичной офертой или юридической консультацией. Сведения о проектах приведены без указания клиентов: адвокатская тайна охраняется законом.</p>
       <p style="margin:0; display:flex; gap:8px; align-items:center;"><a href="#" style="text-decoration:none; border-bottom:1px solid var(--line); color:var(--muted);">Политика обработки персональных данных</a></p>
       <p style="margin:0;">© <span id="year">2026</span> Ярослав Казаков</p>
+    </div>
+  </div>
+
+  <div id="lead-banner" style="position:fixed; left:0; right:0; bottom:0; z-index:50; transform:translateY(120%); transition:transform .4s ease; background:var(--surface); border-top:1px solid var(--accent); box-shadow:0 -4px 20px rgba(0,0,0,.1);">
+    <div style="position:relative; max-width:1140px; margin:0 auto; padding:18px clamp(20px,5vw,64px); padding-right:56px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px;">
+      <div style="flex:1 1 320px;">
+        <p style="margin:0; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent);">Бесплатный материал</p>
+        <p style="margin:4px 0 0; font-size:15px; color:var(--ink);">«Рассрочка по уплате налогов: пошаговый алгоритм» — оставьте почту, материал откроется сразу</p>
+      </div>
+      <form id="lead-form" style="flex:1 1 300px; display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+        <input type="hidden" name="access_key" value="f30fca3b-6591-4ca6-b439-603c833ec839">
+        <input type="hidden" name="subject" value="Заявка на материал: Рассрочка по уплате налогов">
+        <input type="hidden" name="from_name" value="Баннер на сайте">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+        <input id="lead-email" name="email" type="email" required placeholder="Ваша почта" style="flex:1 1 200px; font-family:'Golos Text',sans-serif; font-size:15px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:10px 12px; box-sizing:border-box;">
+        <button type="submit" style="padding:10px 20px; font-size:14px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; white-space:nowrap; font-family:'Golos Text',sans-serif;">Получить материал</button>
+        <p id="lead-status" role="status" style="flex-basis:100%; margin:0; font-size:13px; color:var(--muted);"></p>
+      </form>
+      <button id="lead-close" type="button" aria-label="Закрыть" style="position:absolute; top:10px; right:14px; background:none; border:none; font-size:20px; line-height:1; color:var(--muted); cursor:pointer; padding:4px;">×</button>
     </div>
   </div>
 
@@ -499,6 +538,72 @@
         formStatus.style.color = '#5C6A65';
       });
   });
+
+  var leadBanner = document.getElementById('lead-banner');
+  var leadDismissed = false;
+  try { leadDismissed = localStorage.getItem('leadBannerDismissed') === '1'; } catch (err) {}
+
+  if (leadBanner && !leadDismissed) {
+    setTimeout(function () {
+      leadBanner.style.transform = 'translateY(0)';
+    }, 5000);
+  }
+
+  function dismissLeadBanner() {
+    if (!leadBanner) return;
+    leadBanner.style.transform = 'translateY(120%)';
+    try { localStorage.setItem('leadBannerDismissed', '1'); } catch (err) {}
+  }
+
+  var leadCloseBtn = document.getElementById('lead-close');
+  if (leadCloseBtn) {
+    leadCloseBtn.addEventListener('click', dismissLeadBanner);
+  }
+
+  var leadForm = document.getElementById('lead-form');
+  if (leadForm) {
+    var leadStatus = document.getElementById('lead-status');
+    var leadSubmitBtn = leadForm.querySelector('button[type="submit"]');
+
+    leadForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      leadSubmitBtn.disabled = true;
+      leadStatus.textContent = 'Отправляю…';
+      leadStatus.style.color = '#5C6A65';
+
+      var pdfWindow = window.open('', '_blank');
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(leadForm)))
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          leadSubmitBtn.disabled = false;
+          if (data.success) {
+            leadForm.reset();
+            if (pdfWindow) {
+              pdfWindow.location = 'rassrochka-roadmap.pdf';
+            } else {
+              window.open('rassrochka-roadmap.pdf', '_blank');
+            }
+            leadStatus.textContent = 'Спасибо! Материал открылся в новой вкладке.';
+            leadStatus.style.color = accent;
+            setTimeout(dismissLeadBanner, 2500);
+          } else {
+            if (pdfWindow) pdfWindow.close();
+            throw new Error(data.message || 'unknown error');
+          }
+        })
+        .catch(function () {
+          if (pdfWindow) pdfWindow.close();
+          leadSubmitBtn.disabled = false;
+          leadStatus.textContent = 'Не удалось отправить. Напишите, пожалуйста, напрямую на ' + fallbackAddress;
+          leadStatus.style.color = '#5C6A65';
+        });
+    });
+  }
 </script>
 
 </body>
