@@ -40,7 +40,7 @@
   "description": "Адвокат, специализация — налоговые споры и защита бизнеса и собственников.",
   "url": "https://advocatekazakov.ru/",
   "telephone": "+7-999-994-15-85",
-  "email": "mailto:yarosl-kazak@mail.ru",
+  "email": "mailto:12039@apmo.ru",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Москва",
@@ -362,7 +362,7 @@
             </li>
             <li style="padding:15px 0; border-top:1px solid var(--line);">
               <span style="display:block; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:4px;">Почта</span>
-              <a href="mailto:yarosl-kazak@mail.ru" style="font-family:'Source Serif 4',Georgia,serif; font-size:19px; text-decoration:none; border-bottom:1px solid var(--line);">yarosl-kazak@mail.ru</a>
+              <a href="mailto:12039@apmo.ru" style="font-family:'Source Serif 4',Georgia,serif; font-size:19px; text-decoration:none; border-bottom:1px solid var(--line);">12039@apmo.ru</a>
             </li>
             <li style="padding:15px 0; border-top:1px solid var(--line);">
               <span style="display:block; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:4px;">Telegram</span>
@@ -379,6 +379,10 @@
           </ul>
 
           <form id="contact-form" style="flex:1 1 320px; display:flex; flex-direction:column; gap:15px;">
+            <input type="hidden" name="access_key" value="f30fca3b-6591-4ca6-b439-603c833ec839">
+            <input type="hidden" name="subject" value="Обращение с сайта advocatekazakov.ru">
+            <input type="hidden" name="from_name" value="Сайт Ярослава Казакова">
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
             <div style="display:flex; flex-direction:column; gap:7px;">
               <label for="name" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Как к вам обращаться</label>
               <input id="name" name="name" type="text" autocomplete="name" required style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--surface); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box;">
@@ -388,8 +392,8 @@
               <input id="contact" name="contact" type="text" required style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--surface); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box;">
             </div>
             <div style="display:flex; flex-direction:column; gap:7px;">
-              <label for="message" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Кратко о задаче</label>
-              <textarea id="message" name="message" required style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--surface); border:1px solid var(--line); padding:12px 14px; width:100%; min-height:125px; resize:vertical; box-sizing:border-box;"></textarea>
+              <label for="message" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Кратко о задаче <span style="text-transform:none; letter-spacing:0;">(необязательно)</span></label>
+              <textarea id="message" name="message" style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--surface); border:1px solid var(--line); padding:12px 14px; width:100%; min-height:125px; resize:vertical; box-sizing:border-box;"></textarea>
             </div>
             <button type="submit" style="display:inline-block; padding:13px 24px; font-size:15px; font-weight:500; text-decoration:none; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; align-self:flex-start; font-family:'Golos Text',sans-serif;">Отправить</button>
             <p id="form-status" role="status" style="font-size:14px; color:#5C6A65; min-height:1.4em; margin:0;"></p>
@@ -416,27 +420,45 @@
   var status = document.getElementById('form-status');
   var accent = '#1F5C4B';
 
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var fallbackAddress = '12039@apmo.ru';
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var name = form.name.value.trim();
     var contact = form.contact.value.trim();
-    var message = form.message.value.trim();
 
-    if (!name || !contact || !message) {
-      status.textContent = 'Заполните, пожалуйста, все три поля.';
+    if (!name || !contact) {
+      status.textContent = 'Заполните, пожалуйста, имя и контакт для ответа.';
       status.style.color = '#5C6A65';
       return;
     }
 
-    var address = 'yarosl-kazak@mail.ru';
-    var body = 'Имя: ' + name + '\nКонтакт: ' + contact + '\n\n' + message;
-    var href = 'mailto:' + address + '?subject=' + encodeURIComponent('Обращение с сайта') + '&body=' + encodeURIComponent(body);
+    submitBtn.disabled = true;
+    status.textContent = 'Отправляю…';
+    status.style.color = '#5C6A65';
 
-    try { window.open(href, '_blank'); } catch (err) {}
-    if (navigator.clipboard) { navigator.clipboard.writeText(body).catch(function () {}); }
-
-    status.textContent = 'Открываю почтовую программу. Если она не открылась — текст скопирован, отправьте его на ' + address;
-    status.style.color = accent;
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        submitBtn.disabled = false;
+        if (data.success) {
+          form.reset();
+          status.textContent = 'Спасибо! Заявка отправлена, я свяжусь с вами в ближайшее время.';
+          status.style.color = accent;
+        } else {
+          throw new Error(data.message || 'unknown error');
+        }
+      })
+      .catch(function () {
+        submitBtn.disabled = false;
+        status.textContent = 'Не удалось отправить форму. Напишите, пожалуйста, напрямую на ' + fallbackAddress;
+        status.style.color = '#5C6A65';
+      });
   });
 </script>
 
