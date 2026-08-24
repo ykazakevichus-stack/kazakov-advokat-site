@@ -43,6 +43,18 @@ jobs:
           WS_RE = re.compile(r'[ \t]+')
           NL_RE = re.compile(r'\n{3,}')
 
+          SERVICE_PATTERNS = [
+              re.compile(r'^Channel created$'),
+              re.compile(r'^Channel photo (updated|removed)'),
+              re.compile(r'^Channel name changed'),
+              re.compile(r'^Group created$'),
+              re.compile(r'\bpinned\s'),
+          ]
+
+
+          def is_service_text(text):
+              return any(p.search(text) for p in SERVICE_PATTERNS)
+
 
           def fetch(url):
               req = urllib.request.Request(url, headers=HEADERS)
@@ -78,7 +90,7 @@ jobs:
                   if not text_m:
                       continue
                   text = clean_text(text_m.group(1))
-                  if not text:
+                  if not text or is_service_text(text):
                       continue
 
                   time_m = TIME_RE.search(block)
