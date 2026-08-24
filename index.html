@@ -389,12 +389,15 @@
 
           <p style="font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin:0;">Библиотека материалов</p>
           <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,380px)); gap:18px; margin-top:16px;">
-<!-- MATERIALS_LIBRARY_START: добавляйте новые материалы такой же карточкой -->
-            <a href="rassrochkaroadmap.pdf" download style="background:var(--surface); border:1px solid var(--line); padding:26px; display:flex; flex-direction:column; gap:12px; text-decoration:none;">
+<!-- MATERIALS_LIBRARY_START: добавляйте новые материалы такой же карточкой.
+     Чтобы материал отдавался в обмен на почту, у ссылки должны быть:
+       href="имя-файла.pdf"  data-gated  data-title="Название материала"
+     Без data-gated файл будет скачиваться сразу, без формы. -->
+            <a href="rassrochkaroadmap.pdf" data-gated data-title="Рассрочка по уплате налогов: пошаговый алгоритм" style="background:var(--surface); border:1px solid var(--line); padding:26px; display:flex; flex-direction:column; gap:12px; text-decoration:none;">
               <span style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);">PDF · гайд</span>
               <h3 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:20px; margin:0;">Рассрочка по уплате налогов: пошаговый алгоритм</h3>
               <p style="font-size:15px; color:var(--muted); margin:0;">Как законно оформить рассрочку по налоговой задолженности — пошаговая инструкция для бизнеса.</p>
-              <span style="margin-top:auto; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);">Скачать →</span>
+              <span style="margin-top:auto; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);">Получить →</span>
             </a>
 <!-- MATERIALS_LIBRARY_END -->
           </div>
@@ -515,6 +518,26 @@
     </div>
   </div>
 
+  <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title" style="display:none; position:fixed; inset:0; z-index:60; background:rgba(7,39,36,.72); padding:20px; overflow-y:auto;">
+    <div style="position:relative; max-width:460px; margin:min(12vh,110px) auto 40px; background:var(--surface); border:1px solid var(--line); padding:clamp(24px,5vw,38px);">
+      <button id="gate-close" type="button" aria-label="Закрыть" style="position:absolute; top:10px; right:14px; background:none; border:none; font-size:24px; line-height:1; color:var(--muted); cursor:pointer; padding:4px;">×</button>
+      <p style="margin:0; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent);">Бесплатный материал</p>
+      <h3 id="gate-title" style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:22px; line-height:1.25; margin:10px 0 0;"></h3>
+      <p style="font-size:15px; color:var(--muted); margin:12px 0 0;">Оставьте почту — материал откроется сразу, а копию я пришлю письмом.</p>
+      <form id="gate-form" style="display:flex; flex-direction:column; gap:12px; margin-top:22px;">
+        <input type="hidden" name="access_key" value="f30fca3b-6591-4ca6-b439-603c833ec839">
+        <input type="hidden" name="subject" value="Заявка на материал с сайта">
+        <input type="hidden" name="from_name" value="Библиотека материалов">
+        <input type="hidden" name="material" value="">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+        <label for="gate-email" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Ваша почта</label>
+        <input id="gate-email" name="email" type="email" required autocomplete="email" style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box;">
+        <button type="submit" style="padding:13px 24px; font-size:15px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; font-family:'Golos Text',sans-serif;">Получить материал</button>
+        <p id="gate-status" role="status" style="margin:0; font-size:13px; color:var(--muted); min-height:1.3em;"></p>
+      </form>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -588,6 +611,46 @@
     leadCloseBtn.addEventListener('click', dismissLeadBanner);
   }
 
+  // общая отправка заявки на материал: письмо через Web3Forms + открытие PDF
+  function requestMaterial(opts) {
+    var pdf = opts.pdf;
+    // вкладку открываем синхронно в обработчике клика, иначе браузер её заблокирует
+    var pdfWindow = window.open('', '_blank');
+
+    opts.button.disabled = true;
+    opts.status.textContent = 'Отправляю…';
+    opts.status.style.color = '#5C6A65';
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(opts.form)))
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        opts.button.disabled = false;
+        if (!data.success) {
+          if (pdfWindow) pdfWindow.close();
+          throw new Error(data.message || 'unknown error');
+        }
+        opts.form.reset();
+        if (pdfWindow) {
+          pdfWindow.location = pdf;
+        } else {
+          window.open(pdf, '_blank');
+        }
+        opts.status.textContent = 'Спасибо! Материал открылся в новой вкладке.';
+        opts.status.style.color = accent;
+        if (opts.onSuccess) setTimeout(opts.onSuccess, 2500);
+      })
+      .catch(function () {
+        if (pdfWindow) pdfWindow.close();
+        opts.button.disabled = false;
+        opts.status.textContent = 'Не удалось отправить. Напишите, пожалуйста, напрямую на ' + fallbackAddress;
+        opts.status.style.color = '#5C6A65';
+      });
+  }
+
   var leadForm = document.getElementById('lead-form');
   if (leadForm) {
     var leadStatus = document.getElementById('lead-status');
@@ -595,41 +658,68 @@
 
     leadForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      leadSubmitBtn.disabled = true;
-      leadStatus.textContent = 'Отправляю…';
-      leadStatus.style.color = '#5C6A65';
+      requestMaterial({
+        form: leadForm,
+        status: leadStatus,
+        button: leadSubmitBtn,
+        pdf: 'rassrochkaroadmap.pdf',
+        onSuccess: dismissLeadBanner
+      });
+    });
+  }
 
-      var pdfWindow = window.open('', '_blank');
+  // карточки библиотеки: материал отдаём в обмен на почту
+  var gate = document.getElementById('gate');
+  if (gate) {
+    var gateForm = document.getElementById('gate-form');
+    var gateStatus = document.getElementById('gate-status');
+    var gateTitle = document.getElementById('gate-title');
+    var gateEmail = document.getElementById('gate-email');
+    var gateSubmit = gateForm.querySelector('button[type="submit"]');
+    var gatePdf = null;
+    var gateOpener = null;
 
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(leadForm)))
-      })
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          leadSubmitBtn.disabled = false;
-          if (data.success) {
-            leadForm.reset();
-            if (pdfWindow) {
-              pdfWindow.location = 'rassrochkaroadmap.pdf';
-            } else {
-              window.open('rassrochkaroadmap.pdf', '_blank');
-            }
-            leadStatus.textContent = 'Спасибо! Материал открылся в новой вкладке.';
-            leadStatus.style.color = accent;
-            setTimeout(dismissLeadBanner, 2500);
-          } else {
-            if (pdfWindow) pdfWindow.close();
-            throw new Error(data.message || 'unknown error');
-          }
-        })
-        .catch(function () {
-          if (pdfWindow) pdfWindow.close();
-          leadSubmitBtn.disabled = false;
-          leadStatus.textContent = 'Не удалось отправить. Напишите, пожалуйста, напрямую на ' + fallbackAddress;
-          leadStatus.style.color = '#5C6A65';
-        });
+    function openGate(link) {
+      gateOpener = link;
+      gatePdf = link.getAttribute('href');
+      var title = link.getAttribute('data-title') || 'Материал';
+      gateTitle.textContent = title;
+      gateForm.material.value = title;
+      gateForm.subject.value = 'Заявка на материал: ' + title;
+      gateStatus.textContent = '';
+      gate.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      gateEmail.focus();
+    }
+
+    function closeGate() {
+      gate.style.display = 'none';
+      document.body.style.overflow = '';
+      if (gateOpener) { gateOpener.focus(); gateOpener = null; }
+    }
+
+    document.querySelectorAll('a[data-gated]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        openGate(link);
+      });
+    });
+
+    document.getElementById('gate-close').addEventListener('click', closeGate);
+    gate.addEventListener('click', function (e) { if (e.target === gate) closeGate(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && gate.style.display === 'block') closeGate();
+    });
+
+    gateForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      requestMaterial({
+        form: gateForm,
+        status: gateStatus,
+        button: gateSubmit,
+        pdf: gatePdf,
+        onSuccess: closeGate
+      });
     });
   }
 
