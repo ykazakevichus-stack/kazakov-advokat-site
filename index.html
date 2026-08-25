@@ -332,11 +332,6 @@
               <p style="font-size:15px; color:var(--muted); margin:0;">GutenTax в Apple Podcasts и Яндекс Музыке — если удобнее слушать в дороге, а не смотреть.</p>
               <span style="margin-top:auto; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);">Apple Podcasts →</span>
             </a>
-            <a href="#contact" style="background:var(--surface); border:1px solid var(--line); padding:26px; display:flex; flex-direction:column; gap:12px; text-decoration:none;">
-              <h3 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:20px; margin:0;">Вебинары и выступления</h3>
-              <p style="font-size:15px; color:var(--muted); margin:0;">Регулярные авторские вебинары по налоговым темам для бизнеса и выступления на отраслевых конференциях — с 2016 года.</p>
-              <span style="margin-top:auto; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);">Пригласить →</span>
-            </a>
           </div>
           <p style="font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin:44px 0 0;">Видео с выступлениями</p>
           <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin-top:16px;">
@@ -381,15 +376,23 @@
               </button>
             </div>
           </div>
-          <p style="font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin:44px 0 0;">Темы, на которые выступаю</p>
-          <ul style="list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0 36px;">
-            <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Налоговые проверки: как выжить и победить</li>
-            <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Статья 54.1 НК РФ: мифы и реальность</li>
-            <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Льготы для ИТ-бизнеса: Сколково и ИНТЦ</li>
-            <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Налоги при релокации и смене резидентства</li>
-            <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Due Diligence: как не купить чужие риски</li>
-            <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Реклама и маркетинг в digital: налоговые ловушки</li>
-          </ul>
+          <div style="background:var(--surface); border:1px solid var(--line); padding:clamp(26px,4vw,40px); margin-top:44px;">
+            <p style="font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin:0;">Вебинары и выступления</p>
+            <h3 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:clamp(22px,2.4vw,28px); line-height:1.2; margin:12px 0 0;">Приглашаю выступить у вас</h3>
+            <p style="font-size:16px; color:var(--muted); margin:14px 0 0; max-width:62ch;">Регулярные авторские вебинары по налоговым темам для бизнеса и выступления на отраслевых конференциях — с 2016 года. Читаю на русском и английском, готов адаптировать тему под вашу аудиторию.</p>
+
+            <p style="font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin:30px 0 0;">Темы, на которые выступаю</p>
+            <ul style="list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0 36px;">
+              <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Налоговые проверки: как выжить и победить</li>
+              <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Статья 54.1 НК РФ: мифы и реальность</li>
+              <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Льготы для ИТ-бизнеса: Сколково и ИНТЦ</li>
+              <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Налоги при релокации и смене резидентства</li>
+              <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Due Diligence: как не купить чужие риски</li>
+              <li style="padding:13px 0; border-top:1px solid var(--line); font-size:15px;">Реклама и маркетинг в digital: налоговые ловушки</li>
+            </ul>
+
+            <button type="button" id="invite-open" style="margin-top:30px; padding:13px 26px; font-size:15px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; font-family:'Golos Text',sans-serif;">Пригласить выступить</button>
+          </div>
         </div>
       </div>
     </div>
@@ -556,6 +559,35 @@
     </div>
   </div>
 
+  <div id="invite" role="dialog" aria-modal="true" aria-labelledby="invite-title" style="display:none; position:fixed; inset:0; z-index:60; background:rgba(7,39,36,.72); padding:20px; overflow-y:auto;">
+    <div style="position:relative; max-width:480px; margin:min(10vh,90px) auto 40px; background:var(--surface); border:1px solid var(--line); padding:clamp(24px,5vw,38px);">
+      <button id="invite-close" type="button" aria-label="Закрыть" style="position:absolute; top:10px; right:14px; background:none; border:none; font-size:24px; line-height:1; color:var(--muted); cursor:pointer; padding:4px;">×</button>
+      <p style="margin:0; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent);">Вебинары и выступления</p>
+      <h3 id="invite-title" style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:22px; line-height:1.25; margin:10px 0 0;">Пригласить выступить</h3>
+      <p style="font-size:15px; color:var(--muted); margin:12px 0 0;">Расскажите про мероприятие — отвечу и обсудим тему, формат и сроки.</p>
+      <form id="invite-form" style="display:flex; flex-direction:column; gap:14px; margin-top:22px;">
+        <input type="hidden" name="access_key" value="f30fca3b-6591-4ca6-b439-603c833ec839">
+        <input type="hidden" name="subject" value="Приглашение выступить — с сайта advocatekazakov.ru">
+        <input type="hidden" name="from_name" value="Форма приглашения">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <label for="invite-name" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Как к вам обращаться</label>
+          <input id="invite-name" name="name" type="text" autocomplete="name" required style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <label for="invite-contact" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Телефон или почта для ответа</label>
+          <input id="invite-contact" name="contact" type="text" required style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <label for="invite-event" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">О мероприятии <span style="text-transform:none; letter-spacing:0;">(необязательно)</span></label>
+          <textarea id="invite-event" name="event" placeholder="Формат, аудитория, ориентировочные даты, интересующая тема" style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box; min-height:110px; resize:vertical;"></textarea>
+        </div>
+        <button type="submit" style="padding:13px 24px; font-size:15px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; font-family:'Golos Text',sans-serif;">Отправить приглашение</button>
+        <p id="invite-status" role="status" style="margin:0; font-size:13px; color:var(--muted); min-height:1.3em;"></p>
+      </form>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -686,48 +718,52 @@
     });
   }
 
+  // общие правила для всплывающих окон: крестик, Escape, клик по фону
+  function setupDialog(dialog) {
+    var opener = null;
+    function open(trigger, focusEl) {
+      opener = trigger || null;
+      dialog.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      if (focusEl) focusEl.focus();
+    }
+    function close() {
+      dialog.style.display = 'none';
+      document.body.style.overflow = '';
+      if (opener) { opener.focus(); opener = null; }
+    }
+    dialog.addEventListener('click', function (e) { if (e.target === dialog) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && dialog.style.display === 'block') close();
+    });
+    return { open: open, close: close };
+  }
+
   // карточки библиотеки: материал отдаём в обмен на почту
   var gate = document.getElementById('gate');
   if (gate) {
+    var gateDialog = setupDialog(gate);
     var gateForm = document.getElementById('gate-form');
     var gateStatus = document.getElementById('gate-status');
     var gateTitle = document.getElementById('gate-title');
     var gateEmail = document.getElementById('gate-email');
     var gateSubmit = gateForm.querySelector('button[type="submit"]');
     var gatePdf = null;
-    var gateOpener = null;
-
-    function openGate(link) {
-      gateOpener = link;
-      gatePdf = link.getAttribute('href');
-      var title = link.getAttribute('data-title') || 'Материал';
-      gateTitle.textContent = title;
-      gateForm.material.value = title;
-      gateForm.subject.value = 'Заявка на материал: ' + title;
-      gateStatus.textContent = '';
-      gate.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-      gateEmail.focus();
-    }
-
-    function closeGate() {
-      gate.style.display = 'none';
-      document.body.style.overflow = '';
-      if (gateOpener) { gateOpener.focus(); gateOpener = null; }
-    }
 
     document.querySelectorAll('a[data-gated]').forEach(function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        openGate(link);
+        gatePdf = link.getAttribute('href');
+        var title = link.getAttribute('data-title') || 'Материал';
+        gateTitle.textContent = title;
+        gateForm.material.value = title;
+        gateForm.subject.value = 'Заявка на материал: ' + title;
+        gateStatus.textContent = '';
+        gateDialog.open(link, gateEmail);
       });
     });
 
-    document.getElementById('gate-close').addEventListener('click', closeGate);
-    gate.addEventListener('click', function (e) { if (e.target === gate) closeGate(); });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && gate.style.display === 'block') closeGate();
-    });
+    document.getElementById('gate-close').addEventListener('click', gateDialog.close);
 
     gateForm.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -736,8 +772,52 @@
         status: gateStatus,
         button: gateSubmit,
         pdf: gatePdf,
-        onSuccess: closeGate
+        onSuccess: gateDialog.close
       });
+    });
+  }
+
+  // приглашение выступить: собираем обращение прямо из блока о вебинарах
+  var invite = document.getElementById('invite');
+  var inviteOpenBtn = document.getElementById('invite-open');
+  if (invite && inviteOpenBtn) {
+    var inviteDialog = setupDialog(invite);
+    var inviteForm = document.getElementById('invite-form');
+    var inviteStatus = document.getElementById('invite-status');
+    var inviteName = document.getElementById('invite-name');
+    var inviteSubmit = inviteForm.querySelector('button[type="submit"]');
+
+    inviteOpenBtn.addEventListener('click', function () {
+      inviteStatus.textContent = '';
+      inviteDialog.open(inviteOpenBtn, inviteName);
+    });
+    document.getElementById('invite-close').addEventListener('click', inviteDialog.close);
+
+    inviteForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      inviteSubmit.disabled = true;
+      inviteStatus.textContent = 'Отправляю…';
+      inviteStatus.style.color = '#5C6A65';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(inviteForm)))
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          inviteSubmit.disabled = false;
+          if (!data.success) throw new Error(data.message || 'unknown error');
+          inviteForm.reset();
+          inviteStatus.textContent = 'Спасибо! Приглашение получено, свяжусь с вами в ближайшее время.';
+          inviteStatus.style.color = accent;
+          setTimeout(inviteDialog.close, 2500);
+        })
+        .catch(function () {
+          inviteSubmit.disabled = false;
+          inviteStatus.textContent = 'Не удалось отправить. Напишите, пожалуйста, напрямую на ' + fallbackAddress;
+          inviteStatus.style.color = '#5C6A65';
+        });
     });
   }
 
