@@ -191,7 +191,15 @@ jobs:
               with open("archive.html", "w", encoding="utf-8") as f:
                   f.write(archive_content)
 
-              print(f"Synced {len(posts)} posts ({min(len(posts), HOME_COUNT)} on homepage).")
+              # обе страницы показывают посты, поэтому даты в sitemap двигаем вместе с ними
+              today = datetime.now().strftime("%Y-%m-%d")
+              with open("sitemap.xml", "r", encoding="utf-8") as f:
+                  sitemap = f.read()
+              sitemap = re.sub(r"<lastmod>\d{4}-\d{2}-\d{2}</lastmod>", f"<lastmod>{today}</lastmod>", sitemap)
+              with open("sitemap.xml", "w", encoding="utf-8") as f:
+                  f.write(sitemap)
+
+              print(f"Synced {len(posts)} posts ({min(len(posts), HOME_COUNT)} on homepage), sitemap dated {today}.")
 
 
           if __name__ == "__main__":
@@ -207,7 +215,7 @@ jobs:
           if git diff --quiet; then
             echo "No changes to commit"
           else
-            git add index.html archive.html
+            git add index.html archive.html sitemap.xml
             git commit -m "chore: sync latest Telegram posts"
             git push
           fi
