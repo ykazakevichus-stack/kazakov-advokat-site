@@ -503,6 +503,14 @@
               <label for="message" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--on-deep-muted);">Кратко о задаче <span style="text-transform:none; letter-spacing:0;">(необязательно)</span></label>
               <textarea id="message" name="message" style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--on-deep); background:rgba(243,247,247,.06); border:1px solid rgba(243,247,247,.28); padding:12px 14px; width:100%; min-height:125px; resize:vertical; box-sizing:border-box;"></textarea>
             </div>
+            <label for="contact-pd" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--on-deep-muted); cursor:pointer;">
+              <input id="contact-pd" name="pd" type="checkbox" required style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--gold); cursor:pointer;">
+              <span>Согласен на обработку персональных данных <span aria-hidden="true">*</span></span>
+            </label>
+            <label for="contact-ads" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--on-deep-muted); cursor:pointer;">
+              <input id="contact-ads" name="ads" type="checkbox" style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--gold); cursor:pointer;">
+              <span>Согласен получать рассылку с материалами и анонсами</span>
+            </label>
             <button type="submit" style="display:inline-block; padding:13px 24px; font-size:15px; font-weight:500; text-decoration:none; border:1px solid var(--gold); background:var(--gold); color:var(--deep); font-weight:600; cursor:pointer; align-self:flex-start; font-family:'Golos Text',sans-serif;">Отправить</button>
             <p id="form-status" role="status" style="font-size:14px; color:#9FB3AC; min-height:1.4em; margin:0;"></p>
           </form>
@@ -542,6 +550,14 @@
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <label for="lead-email" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;">Ваша почта</label>
         <input id="lead-email" name="email" type="email" required placeholder="Ваша почта" style="flex:1 1 200px; font-family:'Golos Text',sans-serif; font-size:15px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:10px 12px; box-sizing:border-box;">
+            <label for="lead-pd" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer; flex-basis:100%;">
+              <input id="lead-pd" name="pd" type="checkbox" required style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
+              <span>Согласен на обработку персональных данных <span aria-hidden="true">*</span></span>
+            </label>
+            <label for="lead-ads" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer; flex-basis:100%;">
+              <input id="lead-ads" name="ads" type="checkbox" style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
+              <span>Согласен получать рассылку с материалами и анонсами</span>
+            </label>
         <button type="submit" style="padding:10px 20px; font-size:14px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; white-space:nowrap; font-family:'Golos Text',sans-serif;">Получить материал</button>
         <p id="lead-status" role="status" style="flex-basis:100%; margin:0; font-size:13px; color:var(--muted);"></p>
       </form>
@@ -563,6 +579,14 @@
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <label for="gate-email" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Ваша почта</label>
         <input id="gate-email" name="email" type="email" required autocomplete="email" style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box;">
+            <label for="gate-pd" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
+              <input id="gate-pd" name="pd" type="checkbox" required style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
+              <span>Согласен на обработку персональных данных <span aria-hidden="true">*</span></span>
+            </label>
+            <label for="gate-ads" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
+              <input id="gate-ads" name="ads" type="checkbox" style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
+              <span>Согласен получать рассылку с материалами и анонсами</span>
+            </label>
         <button type="submit" style="padding:13px 24px; font-size:15px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; font-family:'Golos Text',sans-serif;">Получить материал</button>
         <p id="gate-status" role="status" style="margin:0; font-size:13px; color:var(--muted); min-height:1.3em;"></p>
       </form>
@@ -592,6 +616,14 @@
           <label for="invite-event" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">О мероприятии <span style="text-transform:none; letter-spacing:0;">(необязательно)</span></label>
           <textarea id="invite-event" name="event" placeholder="Формат, аудитория, ориентировочные даты, интересующая тема" style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box; min-height:110px; resize:vertical;"></textarea>
         </div>
+            <label for="invite-pd" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
+              <input id="invite-pd" name="pd" type="checkbox" required style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
+              <span>Согласен на обработку персональных данных <span aria-hidden="true">*</span></span>
+            </label>
+            <label for="invite-ads" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
+              <input id="invite-ads" name="ads" type="checkbox" style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
+              <span>Согласен получать рассылку с материалами и анонсами</span>
+            </label>
         <button type="submit" style="padding:13px 24px; font-size:15px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; font-family:'Golos Text',sans-serif;">Отправить приглашение</button>
         <p id="invite-status" role="status" style="margin:0; font-size:13px; color:var(--muted); min-height:1.3em;"></p>
       </form>
@@ -612,6 +644,17 @@
   var submitBtn = form.querySelector('button[type="submit"]');
   var fallbackAddress = '12039@apmo.ru';
 
+  // Невыбранная галочка браузером не отправляется — подставляем явные «Да»/«Нет»,
+  // чтобы в письме всегда было видно, на что человек согласился.
+  function payloadOf(form) {
+    var data = Object.fromEntries(new FormData(form));
+    delete data.pd;
+    delete data.ads;
+    data['Согласие на обработку персональных данных'] = form.pd && form.pd.checked ? 'Да' : 'Нет';
+    data['Согласие на рекламную рассылку'] = form.ads && form.ads.checked ? 'Да' : 'Нет';
+    return data;
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var name = form.name.value.trim();
@@ -630,7 +673,7 @@
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      body: JSON.stringify(payloadOf(form))
     })
       .then(function (res) { return res.json(); })
       .then(function (data) {
@@ -684,7 +727,7 @@
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(Object.fromEntries(new FormData(opts.form)))
+      body: JSON.stringify(payloadOf(opts.form))
     })
       .then(function (res) { return res.json(); })
       .then(function (data) {
@@ -812,7 +855,7 @@
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(inviteForm)))
+        body: JSON.stringify(payloadOf(inviteForm))
       })
         .then(function (res) { return res.json(); })
         .then(function (data) {
