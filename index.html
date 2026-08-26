@@ -505,7 +505,7 @@
             </div>
             <label for="contact-pd" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--on-deep-muted); cursor:pointer;">
               <input id="contact-pd" name="pd" type="checkbox" required style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--gold); cursor:pointer;">
-              <span>Согласен на обработку персональных данных <span aria-hidden="true">*</span></span>
+              <span>Согласен на обработку <a href="/privacy.html" target="_blank" rel="noopener" style="color:inherit;">персональных данных</a> <span aria-hidden="true">*</span></span>
             </label>
             <label for="contact-ads" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--on-deep-muted); cursor:pointer;">
               <input id="contact-ads" name="ads" type="checkbox" style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--gold); cursor:pointer;">
@@ -532,7 +532,7 @@
   <footer style="border-top:1px solid var(--line); padding:34px 0 54px; font-size:13px; color:var(--muted);">
     <div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; flex-wrap:wrap; gap:14px 36px; justify-content:space-between;">
       <p style="max-width:66ch; margin:0;">Информация на сайте носит справочный характер, не является публичной офертой или юридической консультацией. Сведения о проектах приведены без указания клиентов: адвокатская тайна охраняется законом.</p>
-      <p style="margin:0; display:flex; gap:8px; align-items:center;"><a href="#" style="text-decoration:none; border-bottom:1px solid var(--line); color:var(--muted);">Политика обработки персональных данных</a></p>
+      <p style="margin:0; display:flex; gap:8px; align-items:center;"><a href="/privacy.html" style="text-decoration:none; border-bottom:1px solid var(--line); color:var(--muted);">Политика обработки персональных данных</a></p>
       <p style="margin:0;">© <span id="year">2026</span> Ярослав Казаков</p>
     </div>
   </footer>
@@ -550,14 +550,7 @@
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <label for="lead-email" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;">Ваша почта</label>
         <input id="lead-email" name="email" type="email" required placeholder="Ваша почта" style="flex:1 1 200px; font-family:'Golos Text',sans-serif; font-size:15px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:10px 12px; box-sizing:border-box;">
-            <label for="lead-pd" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer; flex-basis:100%;">
-              <input id="lead-pd" name="pd" type="checkbox" required style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
-              <span>Согласен на обработку персональных данных <span aria-hidden="true">*</span></span>
-            </label>
-            <label for="lead-ads" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer; flex-basis:100%;">
-              <input id="lead-ads" name="ads" type="checkbox" style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
-              <span>Согласен получать рассылку с материалами и анонсами</span>
-            </label>
+        <p style="flex-basis:100%; margin:0; font-size:12px; line-height:1.45; color:var(--muted);">Оставляя почту, вы соглашаетесь с <a href="/privacy.html" style="color:var(--accent);">политикой обработки персональных данных</a>.</p>
         <button type="submit" style="padding:10px 20px; font-size:14px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; white-space:nowrap; font-family:'Golos Text',sans-serif;">Получить материал</button>
         <p id="lead-status" role="status" style="flex-basis:100%; margin:0; font-size:13px; color:var(--muted);"></p>
       </form>
@@ -581,7 +574,7 @@
         <input id="gate-email" name="email" type="email" required autocomplete="email" style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box;">
             <label for="gate-pd" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
               <input id="gate-pd" name="pd" type="checkbox" required style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
-              <span>Согласен на обработку персональных данных <span aria-hidden="true">*</span></span>
+              <span>Согласен на обработку <a href="/privacy.html" target="_blank" rel="noopener" style="color:inherit;">персональных данных</a> <span aria-hidden="true">*</span></span>
             </label>
             <label for="gate-ads" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
               <input id="gate-ads" name="ads" type="checkbox" style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
@@ -618,7 +611,7 @@
         </div>
             <label for="invite-pd" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
               <input id="invite-pd" name="pd" type="checkbox" required style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
-              <span>Согласен на обработку персональных данных <span aria-hidden="true">*</span></span>
+              <span>Согласен на обработку <a href="/privacy.html" target="_blank" rel="noopener" style="color:inherit;">персональных данных</a> <span aria-hidden="true">*</span></span>
             </label>
             <label for="invite-ads" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
               <input id="invite-ads" name="ads" type="checkbox" style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
@@ -650,8 +643,13 @@
     var data = Object.fromEntries(new FormData(form));
     delete data.pd;
     delete data.ads;
-    data['Согласие на обработку персональных данных'] = form.pd && form.pd.checked ? 'Да' : 'Нет';
-    data['Согласие на рекламную рассылку'] = form.ads && form.ads.checked ? 'Да' : 'Нет';
+    // в баннере галочек нет — согласие даётся самой отправкой, так и отмечаем
+    data['Согласие на обработку персональных данных'] = form.pd
+      ? (form.pd.checked ? 'Да' : 'Нет')
+      : 'Да (принято при отправке формы)';
+    data['Согласие на рекламную рассылку'] = form.ads
+      ? (form.ads.checked ? 'Да' : 'Нет')
+      : 'Не запрашивалось';
     return data;
   }
 
