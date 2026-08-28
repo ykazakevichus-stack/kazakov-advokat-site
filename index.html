@@ -848,8 +848,27 @@
       if (opener) { opener.focus(); opener = null; }
     }
     dialog.addEventListener('click', function (e) { if (e.target === dialog) close(); });
+
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && dialog.style.display === 'block') close();
+      if (dialog.style.display !== 'block') return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key !== 'Tab') return;
+
+      // окно объявлено модальным — значит и Tab не должен уводить на страницу под ним
+      var items = [].filter.call(
+        dialog.querySelectorAll('a[href], button, input, textarea, select'),
+        function (el) { return el.offsetParent !== null && !el.disabled; }
+      );
+      if (!items.length) return;
+      var first = items[0], last = items[items.length - 1];
+
+      if (!dialog.contains(document.activeElement)) {
+        e.preventDefault(); first.focus();
+      } else if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
     });
     return { open: open, close: close };
   }
