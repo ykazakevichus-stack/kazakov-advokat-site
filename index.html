@@ -283,6 +283,22 @@
     </div>
   </section>
 
+  <div style="border-top:1px solid var(--line);">
+    <div style="max-width:1320px; margin:0 auto; padding:clamp(34px,5vw,52px) clamp(20px,5vw,64px);">
+      <div style="background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--gold); padding:clamp(24px,4vw,36px); display:flex; flex-wrap:wrap; align-items:center; gap:20px 40px;">
+        <div style="flex:1 1 420px; min-width:260px;">
+          <h2 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:clamp(20px,2.4vw,26px); line-height:1.24; margin:0;">Узнали свою ситуацию?</h2>
+          <p style="font-size:16px; color:var(--muted); margin:10px 0 0; max-width:56ch;">Расскажите, что происходит, — отвечу, есть ли здесь работа для адвоката и с чего начинать. Первый разговор ни к чему не обязывает.</p>
+        </div>
+        <div style="flex:0 1 auto; display:flex; flex-wrap:wrap; gap:12px;">
+          <button type="button" id="ask-open" style="padding:13px 26px; font-size:15px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; font-family:'Golos Text',sans-serif;">Обсудить задачу</button>
+          <a href="https://t.me/yaroslavchig" target="_blank" rel="noopener" style="padding:13px 24px; font-size:15px; font-weight:500; text-decoration:none; border:1px solid var(--line); color:var(--ink); display:inline-flex; align-items:center;">Написать в Telegram</a>
+          <a href="tel:+79999941585" style="padding:13px 24px; font-size:15px; font-weight:500; text-decoration:none; border:1px solid var(--line); color:var(--ink); display:inline-flex; align-items:center;">Позвонить</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <section id="experience" style="padding:clamp(48px,8vw,92px) 0; border-top:1px solid var(--line);">
     <div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,5vw,64px);">
       <div style="display:flex; flex-wrap:wrap; gap:clamp(20px,4vw,52px);">
@@ -597,6 +613,43 @@
     </div>
   </div>
 
+  <div id="ask" role="dialog" aria-modal="true" aria-labelledby="ask-title" style="display:none; position:fixed; inset:0; z-index:60; background:rgba(7,39,36,.72); padding:20px; overflow-y:auto;">
+    <div style="position:relative; max-width:480px; margin:min(10vh,90px) auto 40px; background:var(--surface); border:1px solid var(--line); padding:clamp(24px,5vw,38px);">
+      <button id="ask-close" type="button" aria-label="Закрыть" style="position:absolute; top:4px; right:6px; width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:none; border:none; font-size:24px; line-height:1; color:var(--muted); cursor:pointer; padding:0;">×</button>
+      <p style="margin:0; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent);">Обращение</p>
+      <h3 id="ask-title" style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:22px; line-height:1.25; margin:10px 0 0;">Обсудить задачу</h3>
+      <p style="font-size:15px; color:var(--muted); margin:12px 0 0;">Достаточно имени и контакта — остальное обсудим при разговоре.</p>
+      <form id="ask-form" style="display:flex; flex-direction:column; gap:14px; margin-top:22px;">
+        <input type="hidden" name="access_key" value="f30fca3b-6591-4ca6-b439-603c833ec839">
+        <input type="hidden" name="subject" value="Обращение с сайта — форма в разделе «Дела»">
+        <input type="hidden" name="from_name" value="Быстрая форма обращения">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <label for="ask-name" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Как к вам обращаться</label>
+          <input id="ask-name" name="name" type="text" autocomplete="name" required style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <label for="ask-contact" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Телефон или почта для ответа</label>
+          <input id="ask-contact" name="contact" type="text" required style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <label for="ask-task" style="font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Кратко о задаче <span style="text-transform:none; letter-spacing:0;">(необязательно)</span></label>
+          <textarea id="ask-task" name="message" style="font-family:'Golos Text',sans-serif; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:12px 14px; width:100%; box-sizing:border-box; min-height:100px; resize:vertical;"></textarea>
+        </div>
+        <label for="ask-pd" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
+          <input id="ask-pd" name="pd" type="checkbox" required style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
+          <span>Согласен на обработку <a href="/privacy.html" target="_blank" rel="noopener" style="color:inherit;">персональных данных</a> <span aria-hidden="true">*</span></span>
+        </label>
+        <label for="ask-ads" style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.45; color:var(--muted); cursor:pointer;">
+          <input id="ask-ads" name="ads" type="checkbox" style="flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--accent); cursor:pointer;">
+          <span>Согласен получать рассылку с материалами и анонсами</span>
+        </label>
+        <button type="submit" style="padding:13px 24px; font-size:15px; font-weight:500; border:1px solid var(--accent); background:var(--accent); color:var(--surface); cursor:pointer; font-family:'Golos Text',sans-serif;">Отправить</button>
+        <p id="ask-status" role="status" style="margin:0; font-size:13px; color:var(--muted); min-height:1.3em;"></p>
+      </form>
+    </div>
+  </div>
+
   <div id="invite" role="dialog" aria-modal="true" aria-labelledby="invite-title" style="display:none; position:fixed; inset:0; z-index:60; background:rgba(7,39,36,.72); padding:20px; overflow-y:auto;">
     <div style="position:relative; max-width:480px; margin:min(10vh,90px) auto 40px; background:var(--surface); border:1px solid var(--line); padding:clamp(24px,5vw,38px);">
       <button id="invite-close" type="button" aria-label="Закрыть" style="position:absolute; top:4px; right:6px; width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:none; border:none; font-size:24px; line-height:1; color:var(--muted); cursor:pointer; padding:0;">×</button>
@@ -839,49 +892,66 @@
     });
   }
 
-  // приглашение выступить: собираем обращение прямо из блока о вебинарах
-  var invite = document.getElementById('invite');
-  var inviteOpenBtn = document.getElementById('invite-open');
-  if (invite && inviteOpenBtn) {
-    var inviteDialog = setupDialog(invite);
-    var inviteForm = document.getElementById('invite-form');
-    var inviteStatus = document.getElementById('invite-status');
-    var inviteName = document.getElementById('invite-name');
-    var inviteSubmit = inviteForm.querySelector('button[type="submit"]');
+  // одинаковая отправка для окон, где нет выдачи файла
+  function sendEnquiry(opts) {
+    opts.button.disabled = true;
+    opts.status.textContent = 'Отправляю…';
+    opts.status.style.color = '#5C6A65';
 
-    inviteOpenBtn.addEventListener('click', function () {
-      inviteStatus.textContent = '';
-      inviteDialog.open(inviteOpenBtn, inviteName);
-    });
-    document.getElementById('invite-close').addEventListener('click', inviteDialog.close);
-
-    inviteForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      inviteSubmit.disabled = true;
-      inviteStatus.textContent = 'Отправляю…';
-      inviteStatus.style.color = '#5C6A65';
-
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payloadOf(inviteForm))
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payloadOf(opts.form))
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        opts.button.disabled = false;
+        if (!data.success) throw new Error(data.message || 'unknown error');
+        opts.form.reset();
+        opts.status.textContent = opts.okText;
+        opts.status.style.color = accent;
+        setTimeout(opts.onSuccess, 2500);
       })
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          inviteSubmit.disabled = false;
-          if (!data.success) throw new Error(data.message || 'unknown error');
-          inviteForm.reset();
-          inviteStatus.textContent = 'Спасибо! Приглашение получено, свяжусь с вами в ближайшее время.';
-          inviteStatus.style.color = accent;
-          setTimeout(inviteDialog.close, 2500);
-        })
-        .catch(function () {
-          inviteSubmit.disabled = false;
-          inviteStatus.textContent = 'Не удалось отправить. Напишите, пожалуйста, напрямую на ' + fallbackAddress;
-          inviteStatus.style.color = '#5C6A65';
-        });
+      .catch(function () {
+        opts.button.disabled = false;
+        opts.status.textContent = 'Не удалось отправить. Напишите, пожалуйста, напрямую на ' + fallbackAddress;
+        opts.status.style.color = '#5C6A65';
+      });
+  }
+
+  // окно с формой, вызываемое кнопкой из середины страницы
+  function wireDialogForm(ids, okText) {
+    var dialog = document.getElementById(ids.dialog);
+    var openBtn = document.getElementById(ids.open);
+    if (!dialog || !openBtn) return;
+
+    var d = setupDialog(dialog);
+    var form = document.getElementById(ids.form);
+    var status = document.getElementById(ids.status);
+    var first = document.getElementById(ids.first);
+    var submit = form.querySelector('button[type="submit"]');
+
+    openBtn.addEventListener('click', function () {
+      status.textContent = '';
+      d.open(openBtn, first);
+    });
+    document.getElementById(ids.close).addEventListener('click', d.close);
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      sendEnquiry({ form: form, status: status, button: submit, okText: okText, onSuccess: d.close });
     });
   }
+
+  wireDialogForm(
+    { dialog: 'ask', open: 'ask-open', close: 'ask-close', form: 'ask-form', status: 'ask-status', first: 'ask-name' },
+    'Спасибо! Заявка отправлена, я свяжусь с вами в ближайшее время.'
+  );
+
+  wireDialogForm(
+    { dialog: 'invite', open: 'invite-open', close: 'invite-close', form: 'invite-form', status: 'invite-status', first: 'invite-name' },
+    'Спасибо! Приглашение получено, свяжусь с вами в ближайшее время.'
+  );
 
   document.querySelectorAll('.yt-facade').forEach(function (btn) {
     btn.addEventListener('click', function () {
