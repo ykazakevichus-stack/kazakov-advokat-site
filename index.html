@@ -698,6 +698,15 @@
   var submitBtn = form.querySelector('button[type="submit"]');
   var fallbackAddress = '12039@apmo.ru';
 
+  // Цели Яндекс.Метрики. Счётчик может не загрузиться (блокировщик рекламы,
+  // отказ от cookie) — тогда просто ничего не отправляем и форма работает как обычно.
+  var METRIKA_ID = 111891159;
+  function goal(name, params) {
+    try {
+      if (typeof window.ym === 'function') window.ym(METRIKA_ID, 'reachGoal', name, params);
+    } catch (err) {}
+  }
+
   // Невыбранная галочка браузером не отправляется — подставляем явные «Да»/«Нет»,
   // чтобы в письме всегда было видно, на что человек согласился.
   function payloadOf(form) {
@@ -739,6 +748,7 @@
         submitBtn.disabled = false;
         if (data.success) {
           form.reset();
+          goal('form_contact');
           formStatus.textContent = 'Спасибо! Заявка отправлена, я свяжусь с вами в ближайшее время.';
           formStatus.style.color = gold;
         } else {
@@ -801,6 +811,7 @@
         } else {
           window.open(pdf, '_blank');
         }
+        goal(opts.goal, opts.goalParams);
         opts.status.textContent = 'Спасибо! Материал открылся в новой вкладке.';
         opts.status.style.color = accent;
         if (opts.onSuccess) setTimeout(opts.onSuccess, 2500);
@@ -825,6 +836,7 @@
         status: leadStatus,
         button: leadSubmitBtn,
         pdf: 'rassrochkaroadmap.pdf',
+        goal: 'lead_banner',
         onSuccess: dismissLeadBanner
       });
     });
@@ -903,6 +915,8 @@
         status: gateStatus,
         button: gateSubmit,
         pdf: gatePdf,
+        goal: 'material_request',
+        goalParams: { material: gateForm.material.value },
         onSuccess: gateDialog.close
       });
     });
@@ -924,6 +938,7 @@
         opts.button.disabled = false;
         if (!data.success) throw new Error(data.message || 'unknown error');
         opts.form.reset();
+        goal(opts.goal);
         opts.status.textContent = opts.okText;
         opts.status.style.color = accent;
         setTimeout(opts.onSuccess, 2500);
@@ -955,19 +970,39 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      sendEnquiry({ form: form, status: status, button: submit, okText: okText, onSuccess: d.close });
+      sendEnquiry({ form: form, status: status, button: submit, okText: okText, goal: ids.goal, onSuccess: d.close });
     });
   }
 
   wireDialogForm(
-    { dialog: 'ask', open: 'ask-open', close: 'ask-close', form: 'ask-form', status: 'ask-status', first: 'ask-name' },
+    { dialog: 'ask', open: 'ask-open', close: 'ask-close', form: 'ask-form', status: 'ask-status', first: 'ask-name', goal: 'form_ask' },
     'Спасибо! Заявка отправлена, я свяжусь с вами в ближайшее время.'
   );
 
   wireDialogForm(
-    { dialog: 'invite', open: 'invite-open', close: 'invite-close', form: 'invite-form', status: 'invite-status', first: 'invite-name' },
+    { dialog: 'invite', open: 'invite-open', close: 'invite-close', form: 'invite-form', status: 'invite-status', first: 'invite-name', goal: 'form_invite' },
     'Спасибо! Приглашение получено, свяжусь с вами в ближайшее время.'
   );
+
+  // клики по контактам и каналам — одним обработчиком на всю страницу
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var h = a.getAttribute('href') || '';
+    if (h.indexOf('tel:') === 0) goal('click_phone');
+    else if (h.indexOf('mailto:') === 0) goal('click_email');
+    else if (h.indexOf('t.me/kazakovvprave') > -1) goal('click_channel_tg');
+    else if (h.indexOf('t.me/') > -1) goal('click_telegram');
+    else if (h.indexOf('max.ru/channel') > -1) goal('click_channel_max');
+    else if (h.indexOf('max.ru/') > -1) goal('click_max');
+    else if (h.indexOf('youtube.com') > -1) goal('click_youtube');
+    else if (h.indexOf('podcasts.apple.com') > -1) goal('click_podcast');
+  });
+
+  // запуск ролика на странице
+  document.querySelectorAll('.yt-facade').forEach(function (btn) {
+    btn.addEventListener('click', function () { goal('play_video', { video: btn.getAttribute('data-yt-id') }); });
+  });
 
   document.querySelectorAll('.yt-facade').forEach(function (btn) {
     btn.addEventListener('click', function () {

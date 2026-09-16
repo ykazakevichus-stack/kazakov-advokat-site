@@ -139,9 +139,17 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // Цель Метрики: счётчик может не загрузиться — тогда просто ничего не отправляем.
+  function goal(name, params) {
+    try {
+      if (typeof window.ym === 'function') window.ym(111891159, 'reachGoal', name, params);
+    } catch (err) {}
+  }
+
   document.querySelectorAll('.yt-facade').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var id = btn.getAttribute('data-yt-id');
+      goal('play_video', { video: id });
       var wrapper = btn.parentElement;
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
